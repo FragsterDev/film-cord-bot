@@ -6,8 +6,9 @@ const createEmbed = require("./embedbuilder.js");
 /**
  * @param {Client} client
  * @param {{ title: string, description: string, color?: number }} options
+ * @param {Object} [other={}]
  */
-async function logToDiscord(client, {title, description, color=0x2f3136}) {
+async function logToDiscord(client, {title, description, color=0x57F287}) {
 
     try {
 
