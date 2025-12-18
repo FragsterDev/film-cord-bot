@@ -2,6 +2,7 @@ const { Client, Events, GatewayIntentBits } = require("discord.js");
 const dotenv = require("dotenv");
 const logToDiscord = require("./helpers/logging");
 const shutdown = require("./helpers/shutdown.js");
+const keepAlive = require("./replit_helper/keepalive.js");
 
 dotenv.config();
 
@@ -40,5 +41,6 @@ client.once(Events.ClientReady, () => {
     });
 });
 
+keepAlive();
 
 client.login(token);
