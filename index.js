@@ -4,6 +4,7 @@ const {
   GatewayIntentBits,
   Collection,
   MessageFlags,
+  ActivityType,
 } = require("discord.js");
 const dotenv = require("dotenv");
 const fs = require("node:fs");
@@ -37,6 +38,16 @@ process.on("unhandledRejection", (reason) => {
 });
 
 client.once(Events.ClientReady, () => {
+  client.user.setPresence({
+    activities: [
+      {
+        name: "Movies & TV Shows",
+        type: ActivityType.Streaming,
+        url: "https://www.youtube.com/watch?v=yjLcN0RFYTI",
+      },
+    ],
+  });
+
   console.log(`Logged In As ${client.user.username}`);
 
   const desc =
