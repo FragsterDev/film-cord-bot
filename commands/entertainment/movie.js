@@ -22,6 +22,8 @@ const movieCommand = new SlashCommandBuilder()
  * @param {Interaction} interaction
  */
 async function execute(interaction) {
+  await interaction.deferReply();
+
   const query = interaction.options.getString("query");
   const id = interaction.options.getString("id");
 
@@ -31,15 +33,18 @@ async function execute(interaction) {
     const data = await searchByQuery("movie", query);
 
     if (!data.results || data.results.length === 0) {
-      return interaction.reply({
+      return interaction.editReply({
         content: "No TV shows found.",
-        ephemeral: true,
       });
     }
 
     item = data.results[0];
   } else {
     item = await searchByID("movie", id);
+
+    if (!item) {
+      return interaction.editReply("No results were found !");
+    }
   }
 
   const genreIds = item.genre_ids ?? item.genres?.map((g) => g.id) ?? [];
@@ -65,7 +70,7 @@ async function execute(interaction) {
 
   const embed = singleItemEmbed(embedData);
 
-  await interaction.reply({ embeds: [embed] });
+  await interaction.editReply({ embeds: [embed] });
 }
 
 module.exports = {
